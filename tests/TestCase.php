@@ -2,9 +2,9 @@
 
 namespace Codedor\TranslatableRoutes\Tests;
 
+use Codedor\TranslatableRoutes\Providers\TranslatableRoutesServiceProvider;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Orchestra\Testbench\TestCase as Orchestra;
-use Codedor\TranslatableRoutes\Providers\TranslatableRoutesServiceProvider;
 
 class TestCase extends Orchestra
 {
