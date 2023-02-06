@@ -22,13 +22,16 @@
         "pestphp/pest-plugin-laravel": "^2.0",
         "phpstan/extension-installer": "^1.1",
         "phpstan/phpstan-deprecation-rules": "^1.0",
-        "phpstan/phpstan-phpunit": "^1.0"
+        "phpstan/phpstan-phpunit": "^1.0",
+        "spatie/laravel-translatable": "^6.3"
     },
     "autoload": {
         "psr-4": {
-            "Codedor\\TranslatableRoutes\\": "src",
-            "Codedor\\TranslatableRoutes\\Database\\Factories\\": "database/factories"
-        }
+            "Codedor\\TranslatableRoutes\\": "src"
+        },
+        "files": [
+            "src/helpers.php"
+        ]
     },
     "autoload-dev": {
         "psr-4": {

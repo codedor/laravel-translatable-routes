@@ -1,3 +1,4 @@
-| Table Of Content                          |
-| ----------------------------------------- |
-| [Title](./file.md)       |
+| Table Of Content                    |
+| ----------------------------------- |
+| [Using Locales](./using-locales.md) |
+| [Routes](./routes.md)               |
