@@ -5,6 +5,12 @@ namespace Codedor\TranslatableRoutes;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Cookie;
 
+/**
+ * @template TKey of array-key
+ * @template TValue of \Codedor\TranslatableRoutes\Locale
+ *
+ * @extends \Illuminate\Support\Collection<TKey, TValue>
+ */
 class LocaleCollection extends Collection
 {
     private ?Locale $fallbackLocale = null;

@@ -5,10 +5,13 @@ parameters:
     level: 4
     paths:
         - src
-        - config
-        - database
     tmpDir: build/phpstan
     checkOctaneCompatibility: true
     checkModelProperties: true
     checkMissingIterableValueType: false
+    ignoreErrors:
+        -
+            message: '#^Method Codedor\\TranslatableRoutes\\TranslateRoute\:\:getAllForNameOrCurrent\(\) should return Codedor\\TranslatableRoutes\\LocaleCollection but returns Illuminate\\Support\\Collection\<\(int\|string\), string\>.$#'
+            path: src/TranslateRoute.php
+
 

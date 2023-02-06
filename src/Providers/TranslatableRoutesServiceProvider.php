@@ -12,9 +12,7 @@ class TranslatableRoutesServiceProvider extends PackageServiceProvider
     {
         $package
             ->name('laravel-translatable-routes')
-            ->setBasePath(__DIR__ . '/../')
-            ->hasConfigFile()
-            ->hasMigration('create_package_table');
+            ->setBasePath(__DIR__ . '/../');
     }
 
     public function registeringPackage()
