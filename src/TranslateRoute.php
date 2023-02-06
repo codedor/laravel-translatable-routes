@@ -21,7 +21,7 @@ class TranslateRoute
         app('url')->forceRootUrl($localeObject->url());
 
         $parameters = array_map(function ($parameter) use ($locale) {
-            if (! ($parameter instanceof Model) && !method_exists($parameter, 'setLocale')) {
+            if (! ($parameter instanceof Model) && ! method_exists($parameter, 'setLocale')) {
                 return $parameter;
             }
 
@@ -41,9 +41,10 @@ class TranslateRoute
         if (! $parameters) {
             $parameters = request()->route()->parameters();
         }
+
         return LocaleCollection::map(function (Locale $locale) use ($routeName, $parameters) {
             $parameters = array_map(function ($parameter) use ($locale) {
-                if (! ($parameter instanceof Model) && !method_exists($parameter, 'setLocale')) {
+                if (! ($parameter instanceof Model) && ! method_exists($parameter, 'setLocale')) {
                     return $parameter;
                 }
 
@@ -62,6 +63,7 @@ class TranslateRoute
         foreach ($parts as $part) {
             if (Str::startsWith($part, '{') && Str::endsWith($part, '}')) {
                 $translatedUri[] = $part;
+
                 continue;
             }
 

@@ -10,6 +10,7 @@ class TestPage extends Model
     use HasTranslations;
 
     public $translatable = ['name', 'slug'];
+
     public $fillable = ['name', 'slug'];
 
     /**
@@ -19,9 +20,10 @@ class TestPage extends Model
      * @param  string|null  $field
      * @return \Illuminate\Database\Eloquent\Model|null
      */
-    public function resolveRouteBinding($value,  $field = null)
+    public function resolveRouteBinding($value, $field = null)
     {
         $locale = app()->getLocale();
+
         return $this->where("slug->{$locale}", $value)->firstOrFail();
     }
 }

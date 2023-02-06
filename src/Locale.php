@@ -11,8 +11,7 @@ class Locale
         private ?string $url = null,
         private ?string $urlLocale = null,
         private array $extras = []
-    )
-    {
+    ) {
         if (! $this->url) {
             $this->url = config('app.url');
         }

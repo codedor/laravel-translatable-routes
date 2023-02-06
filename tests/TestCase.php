@@ -4,7 +4,6 @@ namespace Codedor\TranslatableRoutes\Tests;
 
 use Codedor\TranslatableRoutes\Providers\TranslatableRoutesServiceProvider;
 use Codedor\TranslatableRoutes\Tests\TestModels\TestPage;
-use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Database\Schema\Blueprint;
 use Orchestra\Testbench\TestCase as Orchestra;
 
@@ -16,7 +15,6 @@ class TestCase extends Orchestra
 
         $this->withoutExceptionHandling();
         $this->setUpDatabase($this->app);
-
     }
 
     protected function getPackageProviders($app)
@@ -41,7 +39,7 @@ class TestCase extends Orchestra
     }
 
     /**
-     * @param \Illuminate\Foundation\Application $app
+     * @param  \Illuminate\Foundation\Application  $app
      */
     protected function setUpDatabase($app)
     {

@@ -32,8 +32,8 @@ class LocaleCollection extends Collection
         // else if there is a fallback locale (config('app.fallback_locale))
         // else return first available locale
         return $this->fallbackLocale =
-                $this->firstWhere(fn(Locale $locale) => $locale->browserLocaleWithCountry() === $preferredBrowserLocale) ?:
-                $this->firstWhere(fn(Locale $locale) => $locale->browserLocale() === $preferredBrowserLocale) ?:
+                $this->firstWhere(fn (Locale $locale) => $locale->browserLocaleWithCountry() === $preferredBrowserLocale) ?:
+                $this->firstWhere(fn (Locale $locale) => $locale->browserLocale() === $preferredBrowserLocale) ?:
                 (app()->getFallbackLocale() ? $this->firstLocale(app()->getFallbackLocale()) : null) ?:
                 $this->first();
     }
@@ -56,12 +56,12 @@ class LocaleCollection extends Collection
 
     public function firstLocale(string $localeToFind): ?Locale
     {
-        return $this->firstWhere(fn(Locale $locale) => $locale->locale() === $localeToFind);
+        return $this->firstWhere(fn (Locale $locale) => $locale->locale() === $localeToFind);
     }
 
     public function firstLocaleWithUrl(string $localeToFind, string $url): ?Locale
     {
-        return $this->firstWhere(fn(Locale $locale) => $locale->urlWithLocale() === app('url')->format($url, $localeToFind));
+        return $this->firstWhere(fn (Locale $locale) => $locale->urlWithLocale() === app('url')->format($url, $localeToFind));
     }
 
     /**

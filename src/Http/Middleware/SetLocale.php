@@ -2,8 +2,8 @@
 
 namespace Codedor\TranslatableRoutes\Http\Middleware;
 
-use Codedor\TranslatableRoutes\Facades\LocaleCollection;
 use Closure;
+use Codedor\TranslatableRoutes\Facades\LocaleCollection;
 use Illuminate\Http\Request;
 
 class SetLocale
