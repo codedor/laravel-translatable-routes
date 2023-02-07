@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Facade;
  * @method static bool isAllowed(string $localeToFind)
  * @method static \Codedor\TranslatableRoutes\Locale|null firstLocale(string $localeToFind)
  * @method static \Codedor\TranslatableRoutes\Locale|null firstLocaleWithUrl(string $localeToFind, string $url)
+ * @method static void registerRoutes(Closure|array|string $callback)
  * @method static \Codedor\TranslatableRoutes\LocaleCollection range(int $from, int $to)
  * @method static array all()
  * @method static \Illuminate\Support\LazyCollection lazy()

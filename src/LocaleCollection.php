@@ -2,8 +2,14 @@
 
 namespace Codedor\TranslatableRoutes;
 
+use Closure;
+use Codedor\TranslatableRoutes\Locale;
+use Codedor\TranslatableRoutes\TranslateRoute;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Cookie;
+use Illuminate\Support\Facades\Route;
+use Illuminate\Routing\Route as RoutingRoute;
+use Illuminate\Support\Str;
 
 /**
  * @template TKey of array-key
@@ -76,5 +82,23 @@ class LocaleCollection extends Collection
     public function preferredBrowserLocale(): ?string
     {
         return request()->getPreferredLanguage($this->pluck('browser_locale_with_country')->toArray());
+    }
+
+    public function registerRoutes(Closure|array|string $callback): void
+    {
+        $this->each(fn (Locale $locale) => Route::middleware('translatable')
+            ->domain($locale->url())
+            ->prefix('/' . $locale->urlLocale())
+            ->as($locale->routePrefix() . '.')
+            ->group($callback)
+        );
+
+        collect(Route::getRoutes()->getRoutes())
+            ->filter(fn (RoutingRoute $route) => in_array('translatable', $route->middleware()))
+            ->each(function (RoutingRoute $route) {
+                $locale = LocaleCollection::firstWhere(fn (Locale $locale) => Str::startsWith($route->getName(), $locale->routePrefix()));
+
+                $route->uri = TranslateRoute::translateParts($route->uri, $locale->locale());
+            });
     }
 }
