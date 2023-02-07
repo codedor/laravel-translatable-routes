@@ -3,12 +3,10 @@
 namespace Codedor\TranslatableRoutes;
 
 use Closure;
-use Codedor\TranslatableRoutes\Locale;
-use Codedor\TranslatableRoutes\TranslateRoute;
+use Illuminate\Routing\Route as RoutingRoute;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\Route;
-use Illuminate\Routing\Route as RoutingRoute;
 use Illuminate\Support\Str;
 
 /**

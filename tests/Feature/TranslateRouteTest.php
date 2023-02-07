@@ -5,7 +5,6 @@ use Codedor\TranslatableRoutes\Locale;
 use Codedor\TranslatableRoutes\Tests\TestModels\TestPage;
 use Codedor\TranslatableRoutes\TranslateRoute;
 use Illuminate\Support\Facades\Route;
-use Illuminate\Support\Str;
 
 beforeEach(function () {
     LocaleCollection::add(new Locale('nl', 'codedor.be'))
