@@ -20,15 +20,10 @@ class TranslateRoute
 
         app('url')->forceRootUrl($localeObject->url());
 
-        $parameters = array_map(function ($parameter) use ($locale) {
-            if (! ($parameter instanceof Model) && ! method_exists($parameter, 'setLocale')) {
-                return $parameter;
-            }
-
-            return $parameter->setLocale($locale);
-        }, $parameters);
-
-        return route("{$localeObject->routePrefix()}.{$routeName}", $parameters);
+        return route(
+            "{$localeObject->routePrefix()}.{$routeName}",
+            self::translateParameters($parameters, $localeObject)
+        );
     }
 
     public static function getAllForNameOrCurrent(string $routeName = null, array $parameters = []): TranslatableRoutesLocaleCollection
@@ -42,17 +37,11 @@ class TranslateRoute
             $parameters = request()->route()->parameters();
         }
 
-        return LocaleCollection::map(function (Locale $locale) use ($routeName, $parameters) {
-            $parameters = array_map(function ($parameter) use ($locale) {
-                if (! ($parameter instanceof Model) && ! method_exists($parameter, 'setLocale')) {
-                    return $parameter;
-                }
-
-                return $parameter->setLocale($locale->locale());
-            }, $parameters);
-
-            return translate_route($routeName, $locale->locale(), $parameters);
-        });
+        return LocaleCollection::map(fn (Locale $locale) => translate_route(
+            $routeName,
+            $locale->locale(),
+            self::translateParameters($parameters, $locale)
+        ));
     }
 
     public static function translateParts(string $uri, string $locale)
@@ -77,5 +66,16 @@ class TranslateRoute
         }
 
         return implode('/', $translatedUri);
+    }
+
+    private static function translateParameters(array $parameters, Locale $locale): array
+    {
+        return array_map(function ($parameter) use ($locale) {
+            if (! ($parameter instanceof Model) && ! method_exists($parameter, 'setLocale')) {
+                return $parameter;
+            }
+
+            return $parameter->setLocale($locale->locale());
+        }, $parameters);
     }
 }

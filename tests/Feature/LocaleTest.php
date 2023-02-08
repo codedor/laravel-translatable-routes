@@ -2,82 +2,61 @@
 
 use Codedor\TranslatableRoutes\Locale;
 
-it('can return a locale', function () {
-    $locale = new Locale('nl-BE');
+it('can return a locale')
+    ->expect(fn () => new Locale('nl-BE'))
+    ->locale()->toEqual('nl-BE');
 
-    $this->assertEquals($locale->locale(), 'nl-BE');
-});
-
-it('can return an url', function () {
-    $locale = new Locale('nl-BE', 'https://localhost');
-
-    $this->assertEquals($locale->url(), 'https://localhost');
-});
+it('can return an url')
+    ->expect(fn () => new Locale('nl-BE', 'http://localhost'))
+    ->url()->toEqual('http://localhost');
 
 it('can return a default url', function () {
-    config(['app.url' => 'https://default.test']);
-    $locale = new Locale('nl-BE');
+    config(['app.url' => 'http://default.test']);
 
-    $this->assertEquals($locale->url(), 'https://default.test');
+    expect(new Locale('nl-BE'))
+        ->url()->toEqual('http://default.test');
 });
 
-it('can return an url locale', function () {
-    $locale = new Locale('nl-BE', 'https://localhost', 'nl');
+it('can return an url locale')
+    ->expect(fn () => new Locale('nl-BE', 'http://localhost', 'nl'))
+    ->urlLocale()->toEqual('nl');
 
-    $this->assertEquals($locale->urlLocale(), 'nl');
-});
+it('falls back to the locale if no url locale is passed')
+    ->expect(fn () => new Locale('nl-BE'))
+    ->urlLocale()->toEqual('nl-BE');
 
-it('can return a default url locale', function () {
-    config(['app.url' => 'https://default.test']);
-    $locale = new Locale('nl-BE');
+it('can return an url with locale')
+    ->expect(fn () => new Locale('nl-BE', 'http://localhost', 'nl'))
+    ->urlWithLocale()->toEqual('http://localhost/nl');
 
-    $this->assertEquals($locale->urlLocale(), 'nl-BE');
-});
+it('can return a browser locale for locale with country')
+    ->expect(fn () => new Locale('nl-BE'))
+    ->browserLocale()->toEqual('nl');
 
-it('can return an url with locale', function () {
-    $locale = new Locale('nl-BE', 'https://localhost', 'nl');
+it('can return a browser locale')
+    ->expect(fn () => new Locale('nl'))
+    ->browserLocale()->toEqual('nl');
 
-    $this->assertEquals($locale->urlWithLocale(), 'https://localhost/nl');
-});
+it('can return a browser locale with country for locale with country')
+    ->expect(fn () => new Locale('nl-BE'))
+    ->browserLocaleWithCountry()->toEqual('nl_BE');
 
-it('can return a browser locale for locale with country', function () {
-    $locale = new Locale('nl-BE');
+it('can return a browser locale with country')
+    ->expect(fn () => new Locale('nl'))
+    ->browserLocaleWithCountry()->toEqual('nl');
 
-    $this->assertEquals($locale->browserLocale(), 'nl');
-});
+it('can return an extra array')
+    ->expect(fn () => new Locale('nl', null, null, ['layout' => 'new']))
+    ->extras()->toMatchArray(['layout' => 'new']);
 
-it('can return a browser locale', function () {
-    $locale = new Locale('nl');
+it('can return a key for the extra array')
+    ->expect(fn () => new Locale('nl', null, null, ['layout' => 'new']))
+    ->extras('layout')->toEqual('new');
 
-    $this->assertEquals($locale->browserLocale(), 'nl');
-});
+it('can return a route prefix')
+    ->expect(fn () => new Locale('nl-BE', 'http://localhost', 'nl'))
+    ->routePrefix()->toEqual('nl-be.localhost');
 
-it('can return a browser locale with country for locale with country', function () {
-    $locale = new Locale('nl-BE');
-
-    $this->assertEquals($locale->browserLocaleWithCountry(), 'nl_BE');
-});
-
-it('can return a browser locale with country', function () {
-    $locale = new Locale('nl');
-
-    $this->assertEquals($locale->browserLocaleWithCountry(), 'nl');
-});
-
-it('can return an extra array', function () {
-    $locale = new Locale('nl', null, null, ['layout' => 'new']);
-
-    $this->assertEquals($locale->extras(), ['layout' => 'new']);
-});
-
-it('can return a key for the extra array', function () {
-    $locale = new Locale('nl', null, null, ['layout' => 'new']);
-
-    $this->assertEquals($locale->extras('layout'), 'new');
-});
-
-it('can return a route prefix', function () {
-    $locale = new Locale('nl-BE', 'localhost', 'nl');
-
-    $this->assertEquals($locale->routePrefix(), 'nl-be.localhost');
-});
+it('can return a host')
+    ->expect(fn () => new Locale('nl-BE', 'http://subdomain.localhost', 'nl'))
+    ->host()->toEqual('subdomain.localhost');

@@ -3,12 +3,10 @@
 namespace Codedor\TranslatableRoutes;
 
 use Closure;
-use Codedor\TranslatableRoutes\Locale;
-use Codedor\TranslatableRoutes\TranslateRoute;
+use Illuminate\Routing\Route as RoutingRoute;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\Route;
-use Illuminate\Routing\Route as RoutingRoute;
 use Illuminate\Support\Str;
 
 /**
@@ -41,11 +39,15 @@ class LocaleCollection extends Collection
 
         // if we have a matching browser locale with country (e.g. nl-BE)
         // else if we have a matching browser locale without country (e.g. nl)
+        // else if we have a matching browser locale that starts with the preferred browser locale
+        // else if we have a matching preferred browser locale that starts with the browser locale
         // else if there is a fallback locale (config('app.fallback_locale))
         // else return first available locale
         return $this->fallbackLocale =
                 $this->firstWhere(fn (Locale $locale) => $locale->browserLocaleWithCountry() === $preferredBrowserLocale) ?:
                 $this->firstWhere(fn (Locale $locale) => $locale->browserLocale() === $preferredBrowserLocale) ?:
+                $this->firstWhere(fn (Locale $locale) => Str::startsWith($preferredBrowserLocale, $locale->browserLocaleWithCountry())) ?:
+                $this->firstWhere(fn (Locale $locale) => Str::startsWith($locale->browserLocaleWithCountry(), $preferredBrowserLocale)) ?:
                 (app()->getFallbackLocale() ? $this->firstLocale(app()->getFallbackLocale()) : null) ?:
                 $this->first();
     }
@@ -81,7 +83,7 @@ class LocaleCollection extends Collection
      */
     public function preferredBrowserLocale(): ?string
     {
-        return request()->getPreferredLanguage($this->pluck('browser_locale_with_country')->toArray());
+        return request()->getPreferredLanguage();
     }
 
     public function registerRoutes(Closure|array|string $callback): void

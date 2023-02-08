@@ -43,7 +43,7 @@ class Locale
 
     public function browserLocale(): string
     {
-        return Str::before($this->locale, '-');
+        return Str::before($this->browserLocaleWithCountry(), '_');
     }
 
     public function browserLocaleWithCountry(): string
@@ -62,6 +62,11 @@ class Locale
 
     public function routePrefix(): string
     {
-        return Str::lower($this->locale . '.' . Str::slug($this->url()));
+        return Str::lower($this->locale . '.' . Str::slug($this->host()));
+    }
+
+    public function host(): string
+    {
+        return parse_url($this->url, PHP_URL_HOST);
     }
 }

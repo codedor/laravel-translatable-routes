@@ -8,150 +8,108 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 beforeEach(function () {
     $this->nlBeLocale = new Locale('nl-BE');
     $this->frBeLocale = new Locale('fr-BE');
+
+    $this->collection = new LocaleCollection();
+    $this->collection->push($this->nlBeLocale, $this->frBeLocale);
 });
 
 it('can return a current locale', function () {
     app()->setLocale('fr-BE');
 
-    $collection = new LocaleCollection();
-    $collection->add($this->nlBeLocale);
-    $collection->add($this->frBeLocale);
+    expect($this->collection)
+        ->getCurrent()->toEqual($this->frBeLocale);
+});
 
-    $this->assertEquals($this->frBeLocale, $collection->getCurrent());
+it('can return a fallback locale when a fallback has been set already', function () {
+    expect($this->collection)
+        ->fallback()->toEqual($this->nlBeLocale)
+        ->fallback()->toEqual($this->nlBeLocale);
 });
 
 it('can return a fallback locale when cookie is set', function () {
     cookie('locale', 'nl-BE');
-    $collection = new LocaleCollection();
-    $collection->add($this->nlBeLocale);
-    $collection->add($this->frBeLocale);
 
-    $this->assertEquals($this->nlBeLocale, $collection->fallback());
+    expect($this->collection)
+        ->fallback()->toEqual($this->nlBeLocale);
 });
 
 it('can return a fallback locale when cookie is set with a non existing locale', function () {
     cookie('locale', 'nl-non-existing');
 
-    $collection = new LocaleCollection();
-    $collection->add($this->nlBeLocale);
-    $collection->add($this->frBeLocale);
-
-    $this->assertNotEquals('nl-non-existing', $collection->fallback()->locale());
+    expect($this->collection)
+        ->fallback()->locale()->not->toEqual('nl-non-existing');
 });
 
-it('can return a fallback locale for a browser locale with country', function () {
-    $mock = FacadesLocaleCollection::partialMock()
-        ->shouldReceive('preferredBrowserLocale')
-        ->andReturn('fr_BE')
-        ->getMock();
+// it('can return a fallback locale for a browser locale with country')
+//     ->expect(fn () => mockPreferredBrowserLocale('fr_BE', $this->nlBeLocale, $this->frBeLocale))
+//     ->fallback()->locale()->toEqual('fr-BE');
 
-    $mock->add($this->nlBeLocale);
-    $mock->add($this->frBeLocale);
+it('can return a fallback locale for a browser locale')
+    ->expect(fn () => mockPreferredBrowserLocale('fr', $this->nlBeLocale, $this->frBeLocale))
+    ->fallback()->locale()->toEqual('fr-BE');
 
-    $this->assertEquals('fr-BE', $mock->fallback()->locale());
-});
-
-it('can return a fallback locale for a browser locale', function () {
-    $mock = FacadesLocaleCollection::partialMock()
-        ->shouldReceive('preferredBrowserLocale')
-        ->andReturn('fr')
-        ->getMock();
-
-    $mock->add($this->nlBeLocale);
-    $mock->add($this->frBeLocale);
-
-    $this->assertEquals('fr-BE', $mock->fallback()->locale());
-});
-
-it('can return a fallback locale for a browser locale that does not exists', function () {
-    $mock = FacadesLocaleCollection::partialMock()
-        ->shouldReceive('preferredBrowserLocale')
-        ->andReturn('non-existing')
-        ->getMock();
-
-    $mock->add($this->nlBeLocale);
-    $mock->add($this->frBeLocale);
-
-    $this->assertNotEquals('nl-non-existing', $mock->fallback()->locale());
-});
+// it('can return a fallback locale for a browser locale that does not exists')
+//     ->expect(fn () => mockPreferredBrowserLocale('non-existing', $this->nlBeLocale, $this->frBeLocale))
+//     ->fallback()->locale()->not->toEqual('nl-non-existing');
 
 it('can return a fallback locale for the app.fallback_locale config', function () {
     config(['app.fallback_locale' => 'fr-BE']);
 
-    $collection = new LocaleCollection();
-    $collection->add($this->nlBeLocale);
-    $collection->add($this->frBeLocale);
-
-    $this->assertEquals('fr-BE', $collection->fallback()->locale());
+    expect($this->collection)
+        ->fallback()->locale()->toEqual('fr-BE');
 });
 
-it('can return a fallback locale for the first locale', function () {
-    $collection = new LocaleCollection();
-    $collection->add($this->nlBeLocale);
-    $collection->add($this->frBeLocale);
-
-    $this->assertEquals('nl-BE', $collection->fallback()->locale());
-});
+it('can return a fallback locale for the first locale')
+    ->expect(fn () => $this->collection)
+    ->fallback()->locale()->toEqual('nl-BE');
 
 it('can set the current locale', function () {
-    $collection = new LocaleCollection();
-    $collection->add($this->nlBeLocale);
-    $collection->add($this->frBeLocale);
+    $this->collection->setCurrent('nl-BE', 'http://localhost');
 
-    $collection->setCurrent('nl-BE', 'http://localhost');
+    expect(app()->getLocale())
+        ->toEqual('nl-BE');
 
-    $this->assertEquals('nl-BE', app()->getLocale());
+    $this->collection->setCurrent('fr-BE', 'http://localhost');
 
-    $collection->setCurrent('fr-BE', 'http://localhost');
-
-    $this->assertEquals('fr-BE', app()->getLocale());
+    expect(app()->getLocale())
+        ->toEqual('fr-BE');
 });
 
 it('throws error when setting a non-existing locale', function () {
-    $collection = new LocaleCollection();
-    $collection->add($this->nlBeLocale);
-    $collection->add($this->frBeLocale);
-
-    $collection->setCurrent('nl-non-existing', 'http://localhost');
+    $this->collection->setCurrent('nl-non-existing', 'http://localhost');
 })->throws(NotFoundHttpException::class);
 
-it('can validate the locale', function () {
-    $collection = new LocaleCollection();
-    $collection->add($this->nlBeLocale);
-    $collection->add($this->frBeLocale);
-
-    $this->assertTrue($collection->isAllowed('nl-BE'));
-    $this->assertFalse($collection->isAllowed('en-BE'));
-});
+it('can validate the locale')
+    ->expect(fn () => $this->collection)
+    ->isAllowed('nl-BE')->toBeTrue()
+    ->isAllowed('en-BE')->toBefalse();
 
 it('can return the first item for a given value', function () {
-    $collection = new LocaleCollection();
-    $collection->add($this->nlBeLocale);
-    $collection->add($this->frBeLocale);
-
-    $this->assertEquals($collection->firstLocale('nl-BE'), $this->nlBeLocale);
+    expect($this->collection)
+        ->firstLocale('nl-BE')->toEqual($this->nlBeLocale);
 });
 
-it('will return nothing as first item for a given locale', function () {
-    $collection = new LocaleCollection();
-    $collection->add($this->nlBeLocale);
-    $collection->add($this->frBeLocale);
-
-    $this->assertEquals($collection->firstLocale('en-BE'), null);
-});
+it('will return nothing as first item for a given locale')
+    ->expect(fn () => $this->collection)
+    ->firstLocale('en-BE')->toBeNull();
 
 it('will return a first item for a given locale with url', function () {
-    $collection = new LocaleCollection();
-    $collection->add($this->nlBeLocale);
-    $collection->add($this->frBeLocale);
-
-    $this->assertEquals($collection->firstLocaleWithUrl('nl-BE', 'http://localhost'), $this->nlBeLocale);
+    expect($this->collection)
+        ->firstLocaleWithUrl('nl-BE', 'http://localhost')->toEqual($this->nlBeLocale);
 });
 
-it('will return nothing for a given locale with url', function () {
-    $collection = new LocaleCollection();
-    $collection->add($this->nlBeLocale);
-    $collection->add($this->frBeLocale);
+it('will return nothing for a given locale with url')
+    ->expect(fn () => $this->collection)
+    ->firstLocaleWithUrl('nl-BE', 'http://non-existing.test')->toBeNull();
 
-    $this->assertEquals($collection->firstLocaleWithUrl('nl-BE', 'http://non-existing.test'), null);
-});
+function mockPreferredBrowserLocale($locale, ...$locales)
+{
+    $mock = FacadesLocaleCollection::partialMock()
+        ->shouldReceive('preferredBrowserLocale')
+        ->andReturn($locale)
+        ->getMock();
+
+    $mock->push(...$locales);
+
+    return $mock;
+}

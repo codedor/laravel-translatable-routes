@@ -3,6 +3,7 @@
 namespace Codedor\TranslatableRoutes\Tests;
 
 use Codedor\TranslatableRoutes\Providers\TranslatableRoutesServiceProvider;
+use Codedor\TranslatableRoutes\Tests\Http\Kernel;
 use Codedor\TranslatableRoutes\Tests\TestModels\TestPage;
 use Illuminate\Database\Schema\Blueprint;
 use Orchestra\Testbench\TestCase as Orchestra;
@@ -63,5 +64,16 @@ class TestCase extends Orchestra
                 'en-GB' => 'en-slug',
             ],
         ]);
+    }
+
+    /**
+     * Resolve application HTTP Kernel implementation.
+     *
+     * @param  \Illuminate\Foundation\Application  $app
+     * @return void
+     */
+    protected function resolveApplicationHttpKernel($app)
+    {
+        $app->singleton('Illuminate\Contracts\Http\Kernel', Kernel::class);
     }
 }
