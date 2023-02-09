@@ -1,6 +1,5 @@
 <?php
 
-use Codedor\TranslatableRoutes\Facades\LocaleCollection as FacadesLocaleCollection;
 use Codedor\TranslatableRoutes\Locale;
 use Codedor\TranslatableRoutes\LocaleCollection;
 use Illuminate\Http\Request;
@@ -113,7 +112,7 @@ function mockPreferredBrowserLocale($locale, ...$locales)
 {
     app()->instance('request', Request::create(
         '/', 'GET', [], [], [], [
-            'HTTP_ACCEPT_LANGUAGE' => $locale
+            'HTTP_ACCEPT_LANGUAGE' => $locale,
         ]
     ));
 }
