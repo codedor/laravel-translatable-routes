@@ -30,7 +30,7 @@ class LocaleCollection extends Collection
         }
 
         // first get locales for current url
-        $locales = $this->where(fn(Locale $locale) => $locale->url() === request()->root());
+        $locales = $this->where(fn (Locale $locale) => $locale->url() === request()->root());
 
         $preferredBrowserLocale = request()->getPreferredLanguage();
 
