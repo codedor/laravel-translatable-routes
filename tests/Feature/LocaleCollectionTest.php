@@ -3,6 +3,7 @@
 use Codedor\TranslatableRoutes\Facades\LocaleCollection as FacadesLocaleCollection;
 use Codedor\TranslatableRoutes\Locale;
 use Codedor\TranslatableRoutes\LocaleCollection;
+use Illuminate\Http\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 beforeEach(function () {
@@ -40,17 +41,23 @@ it('can return a fallback locale when cookie is set with a non existing locale',
         ->fallback()->locale()->not->toEqual('nl-non-existing');
 });
 
-// it('can return a fallback locale for a browser locale with country')
-//     ->expect(fn () => mockPreferredBrowserLocale('fr_BE', $this->nlBeLocale, $this->frBeLocale))
-//     ->fallback()->locale()->toEqual('fr-BE');
+it('can return a fallback locale for a browser locale with country', function () {
+    mockPreferredBrowserLocale('fr_BE');
+    expect($this->collection)
+        ->fallback()->locale()->toEqual('fr-BE');
+});
 
-it('can return a fallback locale for a browser locale')
-    ->expect(fn () => mockPreferredBrowserLocale('fr', $this->nlBeLocale, $this->frBeLocale))
-    ->fallback()->locale()->toEqual('fr-BE');
+it('can return a fallback locale for a browser locale', function () {
+    mockPreferredBrowserLocale('fr');
+    expect($this->collection)
+        ->fallback()->locale()->toEqual('fr-BE');
+});
 
-// it('can return a fallback locale for a browser locale that does not exists')
-//     ->expect(fn () => mockPreferredBrowserLocale('non-existing', $this->nlBeLocale, $this->frBeLocale))
-//     ->fallback()->locale()->not->toEqual('nl-non-existing');
+it('can return a fallback locale for a browser locale that does not exists', function () {
+    mockPreferredBrowserLocale('non-existing');
+    expect($this->collection)
+        ->fallback()->locale()->not->toEqual('nl-non-existing');
+});
 
 it('can return a fallback locale for the app.fallback_locale config', function () {
     config(['app.fallback_locale' => 'fr-BE']);
@@ -104,12 +111,9 @@ it('will return nothing for a given locale with url')
 
 function mockPreferredBrowserLocale($locale, ...$locales)
 {
-    $mock = FacadesLocaleCollection::partialMock()
-        ->shouldReceive('preferredBrowserLocale')
-        ->andReturn($locale)
-        ->getMock();
-
-    $mock->push(...$locales);
-
-    return $mock;
+    app()->instance('request', Request::create(
+        '/', 'GET', [], [], [], [
+            'HTTP_ACCEPT_LANGUAGE' => $locale
+        ]
+    ));
 }

@@ -17,8 +17,6 @@ use Illuminate\Support\Str;
  */
 class LocaleCollection extends Collection
 {
-    private ?Locale $fallbackLocale = null;
-
     public function getCurrent(): ?Locale
     {
         return $this->firstLocale(app()->currentLocale());
@@ -26,16 +24,15 @@ class LocaleCollection extends Collection
 
     public function fallback(): Locale
     {
-        if ($this->fallbackLocale && self::isAllowed($this->fallbackLocale->locale())) {
-            return $this->fallbackLocale;
-        }
-
         // If the user has a preferred locale cookie, use that
-        if (Cookie::has('locale') && self::isAllowed(Cookie::get('locale'))) {
-            return $this->fallbackLocale = $this->firstLocale(Cookie::get('locale'));
+        if (Cookie::has('locale') && $this->isAllowed(Cookie::get('locale'))) {
+            return $this->firstLocale(Cookie::get('locale'));
         }
 
-        $preferredBrowserLocale = $this->preferredBrowserLocale();
+        // first get locales for current url
+        $locales = $this->where(fn(Locale $locale) => $locale->url() === request()->root());
+
+        $preferredBrowserLocale = request()->getPreferredLanguage();
 
         // if we have a matching browser locale with country (e.g. nl-BE)
         // else if we have a matching browser locale without country (e.g. nl)
@@ -43,13 +40,12 @@ class LocaleCollection extends Collection
         // else if we have a matching preferred browser locale that starts with the browser locale
         // else if there is a fallback locale (config('app.fallback_locale))
         // else return first available locale
-        return $this->fallbackLocale =
-                $this->firstWhere(fn (Locale $locale) => $locale->browserLocaleWithCountry() === $preferredBrowserLocale) ?:
-                $this->firstWhere(fn (Locale $locale) => $locale->browserLocale() === $preferredBrowserLocale) ?:
-                $this->firstWhere(fn (Locale $locale) => Str::startsWith($preferredBrowserLocale, $locale->browserLocaleWithCountry())) ?:
-                $this->firstWhere(fn (Locale $locale) => Str::startsWith($locale->browserLocaleWithCountry(), $preferredBrowserLocale)) ?:
-                (app()->getFallbackLocale() ? $this->firstLocale(app()->getFallbackLocale()) : null) ?:
-                $this->first();
+        return $locales->firstWhere(fn (Locale $locale) => $locale->browserLocaleWithCountry() === $preferredBrowserLocale) ?:
+            $locales->firstWhere(fn (Locale $locale) => $locale->browserLocale() === $preferredBrowserLocale) ?:
+            $locales->firstWhere(fn (Locale $locale) => Str::startsWith($preferredBrowserLocale, $locale->browserLocaleWithCountry())) ?:
+            $locales->firstWhere(fn (Locale $locale) => Str::startsWith($locale->browserLocaleWithCountry(), $preferredBrowserLocale)) ?:
+            (app()->getFallbackLocale() ? $locales->firstLocale(app()->getFallbackLocale()) : null) ?:
+            $locales->first();
     }
 
     public function setCurrent(string $currentLocale, string $url): self
@@ -76,14 +72,6 @@ class LocaleCollection extends Collection
     public function firstLocaleWithUrl(string $localeToFind, string $url): ?Locale
     {
         return $this->firstWhere(fn (Locale $locale) => $locale->urlWithLocale() === app('url')->format($url, $localeToFind));
-    }
-
-    /**
-     * Get the preferred browser locale based on the browser_locale_with_country keys
-     */
-    public function preferredBrowserLocale(): ?string
-    {
-        return request()->getPreferredLanguage();
     }
 
     public function registerRoutes(Closure|array|string $callback): void

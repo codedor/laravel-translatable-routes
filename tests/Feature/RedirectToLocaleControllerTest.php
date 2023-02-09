@@ -72,3 +72,20 @@ it('redirects to first locale when cookie Accept-Language and fallback values ar
         ->get(route('splash'))
         ->assertRedirect('/nl');
 });
+
+it('redirects to first locale for the current host', function () {
+    LocaleCollection::forget(LocaleCollection::keys()->toArray());
+
+    LocaleCollection::push(new Locale('nl', 'http://be.localhost'))
+        ->push(new Locale('fr', 'http://be.localhost'))
+        ->push(new Locale('en', 'http://com.localhost'))
+        ->push(new Locale('de', 'http://com.localhost'));
+
+    $this
+        ->get('http://be.localhost')
+        ->assertRedirect('http://be.localhost/nl');
+
+    $this
+        ->get('http://com.localhost')
+        ->assertRedirect('http://com.localhost/en');
+});
