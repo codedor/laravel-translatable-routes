@@ -9,7 +9,7 @@ When it comes to handling translated routes, the process can be complex and time
 First, install this package via the Composer package manager:
 
 ```bash
-composer require laravel/scout
+composer require codedor/laravel-translatable-routes
 ```
 
 After installing this package, you can create a `routes/translatable.php` file.
