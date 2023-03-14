@@ -6,6 +6,7 @@ use Codedor\TranslatableRoutes\Facades\LocaleCollection;
 use Codedor\TranslatableRoutes\LocaleCollection as TranslatableRoutesLocaleCollection;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Str;
 
 class TranslateRoute
@@ -20,10 +21,11 @@ class TranslateRoute
 
         app('url')->forceRootUrl($localeObject->url());
 
-        return route(
-            "{$localeObject->routePrefix()}.{$routeName}",
-            self::translateParameters($parameters, $localeObject)
-        );
+        $route = collect(Route::getRoutes()->getRoutes())
+            ->filter(fn ($route) => $route->getName() === $routeName && $route->wheres['locale'] === $locale)
+            ->first();
+
+        return app('url')->toRoute($route, self::translateParameters($parameters, $localeObject), true);
     }
 
     public static function getAllForNameOrCurrent(string $routeName = null, array $parameters = []): TranslatableRoutesLocaleCollection

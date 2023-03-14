@@ -78,15 +78,15 @@ class LocaleCollection extends Collection
     {
         $this->each(fn (Locale $locale) => Route::middleware('translatable')
             ->domain($locale->url())
+            ->where(['locale' => $locale->locale()])
             ->prefix('/' . $locale->urlLocale())
-            ->as($locale->routePrefix() . '.')
             ->group($callback)
         );
 
         collect(Route::getRoutes()->getRoutes())
             ->filter(fn (RoutingRoute $route) => in_array('translatable', $route->middleware()))
             ->each(function (RoutingRoute $route) {
-                $locale = $this->firstWhere(fn (Locale $locale) => Str::startsWith($route->getName(), $locale->routePrefix()));
+                $locale = $this->firstLocale($route->wheres['locale'] ?? '');
 
                 if (! $locale) {
                     return;
