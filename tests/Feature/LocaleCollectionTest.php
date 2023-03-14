@@ -123,11 +123,14 @@ it('will only prefix the translatable routes name with the locale url prefix', f
     expect(Route::getRoutes()->getRoutes())
         ->sequence(
             fn ($route) => $route
-                ->getName()->toBe('non-translatable'),
+                ->getName()->toBe('non-translatable')
+                ->wheres->toBe([]),
             fn ($route) => $route
-                ->getName()->toBe('nl-be.localhost.home'),
+                ->getName()->toBe('home')
+                ->wheres->toBe(['locale' => 'nl-BE']),
             fn ($route) => $route
-                ->getName()->toBe('fr-be.localhost.home')
+                ->getName()->toBe('home')
+                ->wheres->toBe(['locale' => 'fr-BE'])
         );
 });
 
