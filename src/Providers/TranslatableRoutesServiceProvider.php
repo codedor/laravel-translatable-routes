@@ -3,8 +3,6 @@
 namespace Codedor\TranslatableRoutes\Providers;
 
 use Codedor\TranslatableRoutes\LocaleCollection;
-use Codedor\TranslatableRoutes\Router;
-use Illuminate\Routing\Route;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
 
