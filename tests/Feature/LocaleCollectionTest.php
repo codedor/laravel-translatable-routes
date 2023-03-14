@@ -3,6 +3,7 @@
 use Codedor\TranslatableRoutes\Locale;
 use Codedor\TranslatableRoutes\LocaleCollection;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Route;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 beforeEach(function () {
@@ -11,6 +12,16 @@ beforeEach(function () {
 
     $this->collection = new LocaleCollection();
     $this->collection->push($this->nlBeLocale, $this->frBeLocale);
+
+    Route::get('non-translatable', function () {
+        return translated_routes();
+    })->middleware('translatable')->name('non-translatable');
+
+    $this->collection->registerRoutes(function () {
+        Route::get('', function () {
+            return translated_routes();
+        })->name('home');
+    });
 });
 
 it('can return a current locale', function () {
@@ -108,7 +119,19 @@ it('will return nothing for a given locale with url')
     ->expect(fn () => $this->collection)
     ->firstLocaleWithUrl('nl-BE', 'http://non-existing.test')->toBeNull();
 
-function mockPreferredBrowserLocale($locale, ...$locales)
+it('will only prefix the translatable routes name with the locale url prefix', function () {
+    expect(Route::getRoutes()->getRoutes())
+        ->sequence(
+            fn ($route) => $route
+                ->getName()->toBe('non-translatable'),
+            fn ($route) => $route
+                ->getName()->toBe('nl-be.localhost.home'),
+            fn ($route) => $route
+                ->getName()->toBe('fr-be.localhost.home')
+        );
+});
+
+function mockPreferredBrowserLocale($locale)
 {
     app()->instance('request', Request::create(
         '/', 'GET', [], [], [], [

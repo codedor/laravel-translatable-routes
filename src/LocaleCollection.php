@@ -86,7 +86,11 @@ class LocaleCollection extends Collection
         collect(Route::getRoutes()->getRoutes())
             ->filter(fn (RoutingRoute $route) => in_array('translatable', $route->middleware()))
             ->each(function (RoutingRoute $route) {
-                $locale = LocaleCollection::firstWhere(fn (Locale $locale) => Str::startsWith($route->getName(), $locale->routePrefix()));
+                $locale = $this->firstWhere(fn (Locale $locale) => Str::startsWith($route->getName(), $locale->routePrefix()));
+
+                if (! $locale) {
+                    return;
+                }
 
                 $route->uri = TranslateRoute::translateParts($route->uri, $locale->locale());
             });
