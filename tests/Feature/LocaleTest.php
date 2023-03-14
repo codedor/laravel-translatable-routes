@@ -52,11 +52,3 @@ it('can return an extra array')
 it('can return a key for the extra array')
     ->expect(fn () => new Locale('nl', null, null, ['layout' => 'new']))
     ->extras('layout')->toEqual('new');
-
-it('can return a route prefix')
-    ->expect(fn () => new Locale('nl-BE', 'http://localhost', 'nl'))
-    ->routePrefix()->toEqual('nl-be.localhost');
-
-it('can return a host')
-    ->expect(fn () => new Locale('nl-BE', 'http://subdomain.localhost', 'nl'))
-    ->host()->toEqual('subdomain.localhost');

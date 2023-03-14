@@ -59,14 +59,4 @@ class Locale
 
         return $this->extras;
     }
-
-    public function routePrefix(): string
-    {
-        return Str::lower($this->locale . '.' . Str::slug($this->host()));
-    }
-
-    public function host(): string
-    {
-        return parse_url($this->url, PHP_URL_HOST);
-    }
 }
