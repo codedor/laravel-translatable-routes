@@ -2,8 +2,9 @@
 
 namespace Codedor\TranslatableRoutes;
 
-use Codedor\TranslatableRoutes\Facades\LocaleCollection;
-use Codedor\TranslatableRoutes\LocaleCollection as TranslatableRoutesLocaleCollection;
+use Codedor\LocaleCollection\Facades\LocaleCollection;
+use Codedor\LocaleCollection\Locale;
+use Codedor\LocaleCollection\LocaleCollection as TranslatableRoutesLocaleCollection;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Route;

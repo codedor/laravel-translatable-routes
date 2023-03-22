@@ -2,7 +2,7 @@
 
 namespace Codedor\TranslatableRoutes\Http\Controllers;
 
-use Codedor\TranslatableRoutes\Facades\LocaleCollection;
+use Codedor\LocaleCollection\Facades\LocaleCollection;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 

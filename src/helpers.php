@@ -1,6 +1,6 @@
 <?php
 
-use Codedor\TranslatableRoutes\LocaleCollection;
+use Codedor\LocaleCollection\LocaleCollection;
 use Codedor\TranslatableRoutes\TranslateRoute;
 use Illuminate\Support\Collection;
 

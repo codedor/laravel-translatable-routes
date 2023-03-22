@@ -13,12 +13,9 @@ composer require codedor/laravel-translatable-routes
 ## Usage
 
 ```php
-Codedor\TranslatableRoutes\Facades\LocaleCollection;
-Codedor\TranslatableRoutes\Locale;
+use \Codedor\LocaleCollection\Facades\LocaleCollection;
 
-LocaleCollection::add(new Locale('nl-BE', 'codedor.be', 'nl'))
-    ->add(new Locale('fr-BE', 'codedor.be', 'fr'))
-    ->add(new Locale('en-GB', 'codedor.com', 'en'));
+LocaleCollection::registerRoutes(base_path('routes/translatable.php'));
 ```
 
 ## Documentation

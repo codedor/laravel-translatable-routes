@@ -1,7 +1,7 @@
 <?php
 
-use Codedor\TranslatableRoutes\Facades\LocaleCollection;
-use Codedor\TranslatableRoutes\Locale;
+use Codedor\LocaleCollection\Facades\LocaleCollection;
+use Codedor\LocaleCollection\Locale;
 use Codedor\TranslatableRoutes\Tests\TestEnums\TestCategory;
 use Codedor\TranslatableRoutes\Tests\TestModels\TestPage;
 use Illuminate\Support\Facades\Route;

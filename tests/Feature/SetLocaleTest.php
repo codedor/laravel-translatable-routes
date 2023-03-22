@@ -1,8 +1,8 @@
 <?php
 
-use Codedor\TranslatableRoutes\Facades\LocaleCollection;
+use Codedor\LocaleCollection\Facades\LocaleCollection;
+use Codedor\LocaleCollection\Locale;
 use Codedor\TranslatableRoutes\Http\Middleware\SetLocale;
-use Codedor\TranslatableRoutes\Locale;
 use Illuminate\Http\Request as HttpRequest;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
