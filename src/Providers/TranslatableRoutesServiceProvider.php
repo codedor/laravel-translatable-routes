@@ -40,7 +40,7 @@ class TranslatableRoutesServiceProvider extends PackageServiceProvider
                         return;
                     }
 
-                    $route->uri = TranslateRoute    ::translateParts($route->uri, $locale->locale());
+                    $route->uri = TranslateRoute::translateParts($route->uri, $locale->locale());
                 });
         });
     }
