@@ -1,7 +1,5 @@
 <?php
 
-use Codedor\TranslatableRoutes\Tests\CustomRoutesTestCase;
-
 use Codedor\LocaleCollection\Facades\LocaleCollection;
 use Codedor\LocaleCollection\Locale;
 use Codedor\TranslatableRoutes\Tests\TestEnums\TestCategory;

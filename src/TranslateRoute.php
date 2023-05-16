@@ -7,7 +7,6 @@ use Codedor\LocaleCollection\Locale;
 use Codedor\LocaleCollection\LocaleCollection as TranslatableRoutesLocaleCollection;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Str;
 
 class TranslateRoute
