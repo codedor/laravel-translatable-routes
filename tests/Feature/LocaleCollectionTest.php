@@ -29,10 +29,8 @@ it('will only prefix the translatable routes name with the locale url prefix', f
                 ->getName()->toBe('non-translatable')
                 ->wheres->toBe([]),
             fn ($route) => $route
-                ->getName()->toBe('home')
-                ->wheres->toBe(['locale' => 'nl-BE']),
+                ->getName()->toBe('nl-be.localhost.home'),
             fn ($route) => $route
-                ->getName()->toBe('home')
-                ->wheres->toBe(['locale' => 'fr-BE'])
+                ->getName()->toBe('fr-be.localhost.home')
         );
 });

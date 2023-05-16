@@ -22,11 +22,10 @@ class TranslateRoute
 
         app('url')->forceRootUrl($localeObject->url());
 
-        $route = collect(Route::getRoutes()->getRoutes())
-            ->filter(fn ($route) => $route->getName() === $routeName && $route->wheres['locale'] === $locale)
-            ->first();
-
-        return app('url')->toRoute($route, self::translateParameters($parameters, $localeObject), true);
+        return route(
+            "{$localeObject->routePrefix()}.{$routeName}",
+            self::translateParameters($parameters, $localeObject)
+        );
     }
 
     public static function getAllForNameOrCurrent(string $routeName = null, array $parameters = []): TranslatableRoutesLocaleCollection
