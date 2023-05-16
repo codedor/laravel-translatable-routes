@@ -25,12 +25,12 @@ class TranslatableRoutesServiceProvider extends PackageServiceProvider
     {
         Locale::macro('host', function (): string {
             /** @var Locale $this */
-            return parse_url($this->url, PHP_URL_HOST);
+            return parse_url($this->url(), PHP_URL_HOST);
         });
 
         Locale::macro('routePrefix', function (): string {
             /** @var Locale $this */
-            return Str::lower($this->locale . '.' . Str::slug($this->host()));
+            return Str::lower($this->locale() . '.' . Str::slug($this->host()));
         });
 
         LocaleCollection::macro('registerRoutes', function (Closure|array|string $callback): void {
