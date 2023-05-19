@@ -23,21 +23,16 @@ class TranslatableRoutesServiceProvider extends PackageServiceProvider
 
     public function bootingPackage()
     {
-        Locale::macro('host', function (): string {
-            /** @var Locale $this */
-            return parse_url($this->url(), PHP_URL_HOST);
-        });
-
         Locale::macro('routePrefix', function (): string {
             /** @var Locale $this */
-            return Str::lower($this->locale() . '.' . Str::slug($this->host()));
+            return Str::lower($this->locale());
         });
 
         LocaleCollection::macro('registerRoutes', function (Closure|array|string $callback): void {
             /** @var LocaleCollection $this */
             $this->each(fn (Locale $locale) => Route::middleware('translatable')
                 ->domain($locale->url())
-                // ->where(['locale' => $locale->locale()])
+                ->where(['translatable' => true])
                 ->prefix('/' . $locale->urlLocale())
                 ->as($locale->routePrefix() . '.')
                 ->group($callback)
