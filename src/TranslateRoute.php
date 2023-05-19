@@ -11,7 +11,7 @@ use Illuminate\Support\Str;
 
 class TranslateRoute
 {
-    public static function forName(string $routeName, string $locale = null, array|Collection $parameters = []): string
+    public static function forName(string $routeName, string $locale = null, array|Collection $parameters = []): ?string
     {
         if (! $locale) {
             $locale = app()->getLocale();
@@ -21,10 +21,15 @@ class TranslateRoute
 
         app('url')->forceRootUrl($localeObject->url());
 
-        return route(
-            "{$localeObject->routePrefix()}.{$routeName}",
-            self::translateParameters($parameters, $localeObject)
-        );
+        try {
+            return route(
+                "{$localeObject->routePrefix()}.{$routeName}",
+                self::translateParameters($parameters, $localeObject)
+            );
+        } catch (\Throwable $th) {
+            report($th);
+            return null;
+        }
     }
 
     public static function getAllForNameOrCurrent(string $routeName = null, array $parameters = []): TranslatableRoutesLocaleCollection

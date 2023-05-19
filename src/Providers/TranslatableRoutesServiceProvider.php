@@ -32,7 +32,7 @@ class TranslatableRoutesServiceProvider extends PackageServiceProvider
             /** @var LocaleCollection $this */
             $this->each(fn (Locale $locale) => Route::middleware('translatable')
                 ->domain($locale->url())
-                ->where(['translatable' => true])
+                ->where(['translatable_prefix' => $locale->routePrefix()])
                 ->prefix('/' . $locale->urlLocale())
                 ->as($locale->routePrefix() . '.')
                 ->group($callback)
