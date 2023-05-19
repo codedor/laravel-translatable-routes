@@ -28,6 +28,7 @@ class TranslateRoute
             );
         } catch (\Throwable $th) {
             report($th);
+
             return null;
         }
     }
