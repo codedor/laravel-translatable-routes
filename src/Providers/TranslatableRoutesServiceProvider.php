@@ -8,6 +8,7 @@ use Codedor\LocaleCollection\LocaleCollection;
 use Codedor\TranslatableRoutes\TranslateRoute;
 use Illuminate\Routing\Route as RoutingRoute;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Str;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
 
@@ -22,19 +23,25 @@ class TranslatableRoutesServiceProvider extends PackageServiceProvider
 
     public function bootingPackage()
     {
+        Locale::macro('routePrefix', function (): string {
+            /** @var Locale $this */
+            return Str::lower($this->locale());
+        });
+
         LocaleCollection::macro('registerRoutes', function (Closure|array|string $callback): void {
             /** @var LocaleCollection $this */
             $this->each(fn (Locale $locale) => Route::middleware('translatable')
                 ->domain($locale->url())
-                ->where(['locale' => $locale->locale()])
+                ->where(['translatable_prefix' => $locale->routePrefix()])
                 ->prefix('/' . $locale->urlLocale())
+                ->as($locale->routePrefix() . '.')
                 ->group($callback)
             );
 
             collect(Route::getRoutes()->getRoutes())
                 ->filter(fn (RoutingRoute $route) => in_array('translatable', $route->middleware()))
                 ->each(function (RoutingRoute $route) {
-                    $locale = $this->firstLocale($route->wheres['locale'] ?? '');
+                    $locale = $this->firstWhere(fn (Locale $locale) => Str::startsWith($route->getName(), $locale->routePrefix()));
 
                     if (! $locale) {
                         return;
