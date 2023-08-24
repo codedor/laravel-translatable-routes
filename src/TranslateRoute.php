@@ -36,8 +36,12 @@ class TranslateRoute
     public static function getAllForNameOrCurrent(string $routeName = null, array $parameters = []): TranslatableRoutesLocaleCollection
     {
         if (! $routeName) {
-            $name = request()->route()->getName();
-            $routeName = (string) Str::of($name)->after('.')->after('.');
+            $routeName = request()->route()->getName();
+
+            $locale = LocaleCollection::firstLocale(app()->getLocale());
+            if (Str::startsWith($routeName, $locale->routePrefix() . '.')) {
+                $routeName = (string) Str::of($routeName)->after($locale->routePrefix() . '.');
+            }
         }
 
         if (! $parameters) {
