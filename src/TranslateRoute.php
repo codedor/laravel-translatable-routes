@@ -44,11 +44,13 @@ class TranslateRoute
             $parameters = request()->route()->parameters();
         }
 
-        return LocaleCollection::map(fn (Locale $locale) => translate_route(
-            $routeName,
-            $locale->locale(),
-            self::translateParameters($parameters, $locale)
-        ));
+        return LocaleCollection::mapWithKeys(fn (Locale $locale) => [
+            $locale->locale() => translate_route(
+                $routeName,
+                $locale->locale(),
+                self::translateParameters($parameters, $locale)
+            ),
+        ]);
     }
 
     public static function translateParts(string $uri, string $locale)

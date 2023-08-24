@@ -81,17 +81,17 @@ it('can translate a route and falls back to app locale', function () {
 it('can return translated routes')
     ->expect(fn () => translated_routes('page', [TestPage::first()])->toArray())
     ->toMatchArray([
-        'http://codedor.be/nl/pagina/nl-slug',
-        'http://codedor.be/fr/page/fr-slug',
-        'http://codedor.com/en-GB/page/en-slug',
+        'nl' => 'http://codedor.be/nl/pagina/nl-slug',
+        'fr-BE' => 'http://codedor.be/fr/page/fr-slug',
+        'en-GB' => 'http://codedor.com/en-GB/page/en-slug',
     ]);
 
 it('can return translated routes for current route', function () {
     app()->setLocale('nl');
     $this->get(translate_route('home'))
         ->assertJson([
-            'http://codedor.be/nl',
-            'http://codedor.be/fr',
-            'http://codedor.com/en-GB',
+            'nl' => 'http://codedor.be/nl',
+            'fr-BE' => 'http://codedor.be/fr',
+            'en-GB' => 'http://codedor.com/en-GB',
         ]);
 });
