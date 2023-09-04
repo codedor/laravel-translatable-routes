@@ -97,6 +97,25 @@ This will output for NL and EN:
 /en/page/{page}
 ```
 
+## Displaying routes
+
+To display routes we provide some helpers:
+
+### `translate_route(string $routeName, string $locale = null, array|Collection $parameters = [])`
+
+This replaces the `route` helper to display a route with a name.
+Since we prefix all routes with a locale, we need this wrapper.
+
+```php
+translate_route('page', null, ['page' => Page::first()];
+
+// /en/page/slug
+```
+
+### `translated_routes(string $routeName = null, array $parameters = [])`
+
+This will return a collection with all routes for the given route name or the current route for each locale.
+
 ## Translatable route parameters
 
 If a parameter is a model and has a `setLocale($locale)` method, the parameter will be translated.
