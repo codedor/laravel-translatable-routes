@@ -5,8 +5,6 @@ namespace Codedor\TranslatableRoutes\Providers;
 use Closure;
 use Codedor\LocaleCollection\Locale;
 use Codedor\LocaleCollection\LocaleCollection;
-use Codedor\MediaLibrary\Views\Picture;
-use Codedor\MediaLibrary\Views\Placeholder;
 use Codedor\TranslatableRoutes\TranslateRoute;
 use Codedor\TranslatableRoutes\View\Components\HrefLangTags;
 use Illuminate\Routing\Route as RoutingRoute;
