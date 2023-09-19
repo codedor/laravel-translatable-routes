@@ -7,10 +7,13 @@ use Codedor\LocaleCollection\Locale;
 use Codedor\LocaleCollection\LocaleCollection as TranslatableRoutesLocaleCollection;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Routing\Exceptions\UrlGenerationException;
 use Illuminate\Support\Str;
 
 class TranslateRoute
 {
+    private static array $errorMessages = [];
+
     public static function forName(string $routeName, string $locale = null, array|Collection $parameters = []): ?string
     {
         if (! $locale) {
@@ -26,10 +29,14 @@ class TranslateRoute
                 "{$localeObject->routePrefix()}.{$routeName}",
                 self::translateParameters($parameters, $localeObject)
             );
-        } catch (\Throwable $th) {
-            report($th);
+        } catch (UrlGenerationException $th) {
+            // We don't want to report the same error multiple times
+            if (! in_array($th->getMessage(), self::$errorMessages)) {
+                self::$errorMessages[] = $th->getMessage();
+                report($th);
+            }
 
-            return null;
+            return '#';
         }
     }
 
