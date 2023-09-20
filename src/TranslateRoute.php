@@ -40,10 +40,10 @@ class TranslateRoute
         }
     }
 
-    public static function getAllForNameOrCurrent(string $routeName = null, array $parameters = []): TranslatableRoutesLocaleCollection
+    public static function getAllForNameOrCurrent(?string $routeName = null, array $parameters = [], ?string $fallbackRoute = null): TranslatableRoutesLocaleCollection
     {
         if (! $routeName) {
-            $routeName = request()->route()->getName();
+            $routeName = request()->route()?->getName();
 
             $locale = LocaleCollection::firstLocale(app()->getLocale());
             if (Str::startsWith($routeName, $locale->routePrefix() . '.')) {
@@ -51,8 +51,12 @@ class TranslateRoute
             }
         }
 
+        if (! $routeName) {
+            $routeName = $fallbackRoute;
+        }
+
         if (! $parameters) {
-            $parameters = request()->route()->parameters();
+            $parameters = request()->route()?->parameters() ?? [];
         }
 
         return LocaleCollection::mapWithKeys(fn (Locale $locale) => [

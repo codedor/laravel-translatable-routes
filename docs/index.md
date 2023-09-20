@@ -112,9 +112,13 @@ translate_route('page', null, ['page' => Page::first()];
 // /en/page/slug
 ```
 
-### `translated_routes(string $routeName = null, array $parameters = [])`
+### `translated_routes(?string $routeName = null, array $parameters = [], ?string $fallbackRoute = null)`
 
 This will return a collection with all routes for the given route name or the current route for each locale.
+
+If the route name is not found, the fallback route will be used if given.
+
+```php
 
 ## Translatable route parameters
 

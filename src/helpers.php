@@ -12,8 +12,8 @@ if (! function_exists('translate_route')) {
 }
 
 if (! function_exists('translated_routes')) {
-    function translated_routes(string $routeName = null, array $parameters = []): LocaleCollection
+    function translated_routes(?string $routeName = null, array $parameters = [], ?string $fallbackRoute = null): LocaleCollection
     {
-        return TranslateRoute::getAllForNameOrCurrent($routeName, $parameters);
+        return TranslateRoute::getAllForNameOrCurrent($routeName, $parameters, $fallbackRoute);
     }
 }
