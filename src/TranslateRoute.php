@@ -40,7 +40,7 @@ class TranslateRoute
         }
     }
 
-    public static function getAllForNameOrCurrent(string $routeName = null, array $parameters = [], string $fallbackRoute = null): TranslatableRoutesLocaleCollection
+    public static function getAllForNameOrCurrent(?string $routeName = null, array $parameters = [], ?string $fallbackRoute = null): TranslatableRoutesLocaleCollection
     {
         if (! $routeName) {
             $routeName = request()->route()?->getName();
@@ -60,11 +60,13 @@ class TranslateRoute
         }
 
         return LocaleCollection::mapWithKeys(fn (Locale $locale) => [
-            $locale->locale() => translate_route(
-                $routeName,
-                $locale->locale(),
-                self::translateParameters($parameters, $locale)
-            ),
+            $locale->locale() => $routeName
+                ? translate_route(
+                    $routeName,
+                    $locale->locale(),
+                    self::translateParameters($parameters, $locale)
+                )
+                : '#',
         ]);
     }
 
@@ -95,7 +97,7 @@ class TranslateRoute
     private static function translateParameters(array $parameters, Locale $locale): array
     {
         return array_map(function ($parameter) use ($locale) {
-            if (! ($parameter instanceof Model) && ! method_exists($parameter, 'setLocale')) {
+            if (! ($parameter instanceof Model) || ! method_exists($parameter, 'setLocale')) {
                 return $parameter;
             }
 
