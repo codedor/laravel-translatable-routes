@@ -4,7 +4,10 @@ namespace Codedor\TranslatableRoutes\Http\Middleware;
 
 use Closure;
 use Codedor\LocaleCollection\Facades\LocaleCollection;
+use Filament\Facades\Filament;
+use Filament\Panel;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class SetLocale
 {
@@ -28,6 +31,10 @@ class SetLocale
             if (isset($snapshot['memo']['locale'])) {
                 $locale = $snapshot['memo']['locale'];
             }
+        }
+
+        if (! $locale) {
+            return $next($request);
         }
 
         LocaleCollection::setCurrent($locale, $request->root());
