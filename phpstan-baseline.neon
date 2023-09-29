@@ -1,0 +1,6 @@
+parameters:
+    ignoreErrors:
+        -
+            message: "#^Parameter \\$panel of anonymous function has invalid type Filament\\\\Panel\\.$#"
+            count: 1
+            path: src/helpers.php

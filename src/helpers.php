@@ -24,6 +24,10 @@ if (! function_exists('translated_routes')) {
 if (! function_exists('is_filament_livewire_route')) {
     function is_filament_livewire_route($request): bool
     {
+        if (! class_exists(Filament::class) || ! class_exists(Panel::class)) {
+            return false;
+        }
+
         $isLivewire = (Str::startsWith($request->path(), 'livewire/') || $request->headers->has('X-LIVEWIRE'));
 
         if ($isLivewire && $request->server('HTTP_REFERER')) {
