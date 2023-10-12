@@ -45,6 +45,6 @@ if (! function_exists('is_filament_livewire_route')) {
 if (! function_exists('is_livewire_route')) {
     function is_livewire_route($request): bool
     {
-        return (Str::startsWith($request->path(), 'livewire/') || $request->headers->has('X-LIVEWIRE'));
+        return Str::startsWith($request->path(), 'livewire/') || $request->headers->has('X-LIVEWIRE');
     }
 }
