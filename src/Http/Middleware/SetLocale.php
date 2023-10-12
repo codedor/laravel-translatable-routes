@@ -22,11 +22,13 @@ class SetLocale
 
         $locale = $request->segment(1);
 
-        if ($request->headers->has('X-LIVEWIRE')) {
-            $snapshot = json_decode($request->json('components.0.snapshot', []), true);
+        if (is_livewire_route($request)) {
+            $snapshot = json_decode($request->json('components.0.snapshot', ''), true);
 
             if (isset($snapshot['memo']['locale'])) {
                 $locale = $snapshot['memo']['locale'];
+            } else {
+                $locale = null;
             }
         }
 

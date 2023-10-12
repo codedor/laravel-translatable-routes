@@ -28,9 +28,7 @@ if (! function_exists('is_filament_livewire_route')) {
             return false;
         }
 
-        $isLivewire = (Str::startsWith($request->path(), 'livewire/') || $request->headers->has('X-LIVEWIRE'));
-
-        if ($isLivewire && $request->server('HTTP_REFERER')) {
+        if (is_livewire_route($request) && $request->server('HTTP_REFERER')) {
             $referer = $request->server('HTTP_REFERER');
             $isFilament = collect(Filament::getPanels())
                 ->contains(fn (Panel $panel) => Str::startsWith($referer, $panel->getUrl()));
@@ -41,5 +39,12 @@ if (! function_exists('is_filament_livewire_route')) {
         }
 
         return false;
+    }
+}
+
+if (! function_exists('is_livewire_route')) {
+    function is_livewire_route($request): bool
+    {
+        return (Str::startsWith($request->path(), 'livewire/') || $request->headers->has('X-LIVEWIRE'));
     }
 }
