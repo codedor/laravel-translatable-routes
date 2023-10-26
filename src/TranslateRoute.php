@@ -5,6 +5,7 @@ namespace Codedor\TranslatableRoutes;
 use Codedor\LocaleCollection\Facades\LocaleCollection;
 use Codedor\LocaleCollection\Locale;
 use Codedor\LocaleCollection\LocaleCollection as TranslatableRoutesLocaleCollection;
+use Codedor\TranslatableRoutes\Facades\TranslateRouteParts;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Routing\Exceptions\UrlGenerationException;
@@ -83,6 +84,7 @@ class TranslateRoute
             }
 
             $key = "routes.$part";
+            TranslateRouteParts::put($key, $key);
 
             if (app('translator')->has($key, $locale)) {
                 $translatedUri[] = app('translator')->get($key, [], $locale);
