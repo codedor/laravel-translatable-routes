@@ -6,7 +6,6 @@ use Codedor\TranslatableRoutes\Http\Middleware\SetLocale;
 use Illuminate\Http\Request as HttpRequest;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 beforeEach(function () {
     LocaleCollection::push(new Locale('nl'))

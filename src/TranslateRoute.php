@@ -15,7 +15,7 @@ class TranslateRoute
 {
     private static array $errorMessages = [];
 
-    public static function forName(string $routeName, string $locale = null, array|Collection $parameters = []): ?string
+    public static function forName(string $routeName, ?string $locale = null, array|Collection $parameters = []): ?string
     {
         if (! $locale) {
             $locale = app()->getLocale();
@@ -41,7 +41,7 @@ class TranslateRoute
         }
     }
 
-    public static function getAllForNameOrCurrent(string $routeName = null, array $parameters = [], string $fallbackRoute = null): TranslatableRoutesLocaleCollection
+    public static function getAllForNameOrCurrent(?string $routeName = null, array $parameters = [], ?string $fallbackRoute = null): TranslatableRoutesLocaleCollection
     {
         if (! $routeName) {
             $routeName = request()->route()?->getName();
