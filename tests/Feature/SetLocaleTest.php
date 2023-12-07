@@ -23,11 +23,17 @@ it('sets the correct locale', function () {
 
 it('throws 404 when locale is not valid', function () {
     createRequestAndHandleMiddleware('/not-allowed');
-})->expectException(NotFoundHttpException::class);
+
+    expect(LocaleCollection::getCurrent())
+        ->toBeNull();
+});
 
 it('throws 404 when url is not found', function () {
     createRequestAndHandleMiddleware('http://codedor.be/en');
-})->expectException(NotFoundHttpException::class);
+
+    expect(LocaleCollection::getCurrent())
+        ->toBeNull();
+});
 
 function createRequestAndHandleMiddleware($url)
 {
