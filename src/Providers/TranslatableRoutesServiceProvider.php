@@ -6,6 +6,7 @@ use Closure;
 use Codedor\LocaleCollection\Locale;
 use Codedor\LocaleCollection\LocaleCollection;
 use Codedor\TranslatableRoutes\TranslateRoute;
+use Codedor\TranslatableRoutes\TranslateRouteParts;
 use Codedor\TranslatableRoutes\View\Components\HrefLangTags;
 use Illuminate\Routing\Route as RoutingRoute;
 use Illuminate\Support\Facades\Blade;
@@ -64,6 +65,10 @@ class TranslatableRoutesServiceProvider extends PackageServiceProvider
         parent::packageBooted();
 
         $this->registerBladeComponents();
+
+        $this->app->bind(TranslateRouteParts::class, function () {
+            return new TranslateRouteParts;
+        });
     }
 
     protected function registerBladeComponents()
