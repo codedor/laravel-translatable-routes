@@ -8,8 +8,8 @@ use Codedor\LocaleCollection\LocaleCollection as TranslatableRoutesLocaleCollect
 use Codedor\TranslatableRoutes\Facades\TranslateRouteParts;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Routing\Exceptions\UrlGenerationException;
 use Illuminate\Support\Str;
+use Throwable;
 
 class TranslateRoute
 {
@@ -30,7 +30,7 @@ class TranslateRoute
                 "{$localeObject->routePrefix()}.{$routeName}",
                 self::translateParameters($parameters, $localeObject)
             );
-        } catch (UrlGenerationException $th) {
+        } catch (Throwable $th) {
             // We don't want to report the same error multiple times
             if (! in_array($th->getMessage(), self::$errorMessages)) {
                 self::$errorMessages[] = $th->getMessage();
