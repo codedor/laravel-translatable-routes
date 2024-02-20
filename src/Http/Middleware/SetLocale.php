@@ -21,7 +21,7 @@ class SetLocale
             return $next($request);
         }
 
-        $locale = Str::after($request->route()->getPrefix(), '/');
+        $locale = Str::after($request->route()?->getPrefix(), '/');
 
         if (is_livewire_route($request)) {
             $snapshot = json_decode($request->json('components.0.snapshot', ''), true);
