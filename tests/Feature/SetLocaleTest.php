@@ -4,6 +4,7 @@ use Codedor\LocaleCollection\Facades\LocaleCollection;
 use Codedor\LocaleCollection\Locale;
 use Codedor\TranslatableRoutes\Http\Middleware\SetLocale;
 use Illuminate\Http\Request as HttpRequest;
+use Illuminate\Support\Facades\Route;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -14,7 +15,13 @@ beforeEach(function () {
 });
 
 it('sets the correct locale', function () {
-    createRequestAndHandleMiddleware('/en');
+    LocaleCollection::registerRoutes(function () {
+        Route::get('', function () {
+            return translated_routes();
+        })->name('home');
+    });
+
+    createRequestAndHandleMiddleware('/en', true);
 
     expect(LocaleCollection::getCurrent())
         ->locale()->toBe('en-GB');
@@ -34,10 +41,14 @@ it('throws 404 when url is not found', function () {
         ->toBeNull();
 });
 
-function createRequestAndHandleMiddleware($url)
+function createRequestAndHandleMiddleware(string $url, bool $setRouteResolver = false)
 {
     $request = Request::create($url);
     $request = HttpRequest::createFromBase($request);
+
+    if ($setRouteResolver) {
+        $request->setRouteResolver(fn () => Route::getRoutes()->match($request));
+    }
 
     return (new SetLocale())->handle($request, fn () => new Response());
 }
