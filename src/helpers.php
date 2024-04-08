@@ -30,8 +30,9 @@ if (! function_exists('is_filament_livewire_route')) {
 
         if (is_livewire_route($request) && $request->server('HTTP_REFERER')) {
             $referer = $request->server('HTTP_REFERER');
+
             $isFilament = collect(Filament::getPanels())
-                ->contains(fn (Panel $panel) => Str::startsWith($referer, $panel->getUrl()));
+                ->contains(fn (Panel $panel) => Str::startsWith($referer, url($panel->getPath())));
 
             if ($isFilament) {
                 return true;
