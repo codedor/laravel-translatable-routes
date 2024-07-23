@@ -28,6 +28,11 @@ if (! function_exists('is_filament_livewire_route')) {
             return false;
         }
 
+        // Temporary solution
+        if (Str::contains($request->url(), '/admin/')) {
+            return true;
+        }
+
         if (is_livewire_route($request) && $request->server('HTTP_REFERER')) {
             $referer = $request->server('HTTP_REFERER');
 
