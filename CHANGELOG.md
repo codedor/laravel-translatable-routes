@@ -5,6 +5,18 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## v1.1.0 - 2024-08-02
+
+### What's Changed
+
+* Add support for laravel v11 by @gdebrauwer in https://github.com/codedor/laravel-translatable-routes/pull/24
+
+### New Contributors
+
+* @gdebrauwer made their first contribution in https://github.com/codedor/laravel-translatable-routes/pull/24
+
+**Full Changelog**: https://github.com/codedor/laravel-translatable-routes/compare/v1.0.3...v1.1.0
+
 ## v1.0.3 - 2024-07-05
 
 Moved some code into a try/catch, so we don't break the whole application if a given locale does not exist
