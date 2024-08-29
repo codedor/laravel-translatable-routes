@@ -50,5 +50,5 @@ function createRequestAndHandleMiddleware(string $url, bool $setRouteResolver = 
         $request->setRouteResolver(fn () => Route::getRoutes()->match($request));
     }
 
-    return (new SetLocale())->handle($request, fn () => new Response());
+    return (new SetLocale)->handle($request, fn () => new Response);
 }
