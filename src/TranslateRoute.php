@@ -23,9 +23,9 @@ class TranslateRoute
 
         $localeObject = LocaleCollection::firstLocale($locale);
 
-        app('url')->forceRootUrl($localeObject->url());
-
         try {
+            app('url')->forceRootUrl($localeObject->url());
+
             return route(
                 "{$localeObject->routePrefix()}.{$routeName}",
                 self::translateParameters($parameters, $localeObject)

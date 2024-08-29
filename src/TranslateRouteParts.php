@@ -4,6 +4,4 @@ namespace Codedor\TranslatableRoutes;
 
 use Illuminate\Support\Collection;
 
-class TranslateRouteParts extends Collection
-{
-}
+class TranslateRouteParts extends Collection {}
