@@ -47,7 +47,8 @@ class TranslateRoute
             $routeName = request()->route()?->getName();
 
             $locale = LocaleCollection::firstLocale(app()->getLocale());
-            if (Str::startsWith($routeName, $locale->routePrefix() . '.')) {
+
+            if ($routeName && Str::startsWith($routeName, $locale->routePrefix() . '.')) {
                 $routeName = (string) Str::of($routeName)->after($locale->routePrefix() . '.');
             }
         }
