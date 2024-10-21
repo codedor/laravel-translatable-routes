@@ -32,7 +32,7 @@ class TranslateRoute
             );
         } catch (Throwable $th) {
             // We don't want to report the same error multiple times
-            if (! in_array($th->getMessage(), self::$errorMessages)) {
+            if (! config('app.disable_route_reporting', false) && ! in_array($th->getMessage(), self::$errorMessages)) {
                 self::$errorMessages[] = $th->getMessage();
                 report($th);
             }
