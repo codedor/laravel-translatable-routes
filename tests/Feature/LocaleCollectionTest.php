@@ -8,7 +8,7 @@ beforeEach(function () {
     $this->nlBeLocale = new Locale('nl-BE');
     $this->frBeLocale = new Locale('fr-BE');
 
-    $this->collection = new LocaleCollection();
+    $this->collection = new LocaleCollection;
     $this->collection->push($this->nlBeLocale, $this->frBeLocale);
 
     Route::get('non-translatable', function () {
