@@ -39,5 +39,5 @@ function createRequestAndHandleMiddleware($url)
     $request = Request::create($url);
     $request = HttpRequest::createFromBase($request);
 
-    return (new SetLocale())->handle($request, fn () => new Response());
+    return (new SetLocale)->handle($request, fn () => new Response);
 }
