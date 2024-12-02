@@ -4,3 +4,11 @@ parameters:
             message: "#^Parameter \\$panel of anonymous function has invalid type Filament\\\\Panel\\.$#"
             count: 1
             path: src/helpers.php
+        -
+            message: "#^Call to an undefined method Codedor\\\\LocaleCollection\\\\Locale\\:\\:routePrefix\\(\\)\\.$#"
+            count: 3
+            path: src/Providers/TranslatableRoutesServiceProvider.php
+        -
+            message: "#^Call to an undefined method Codedor\\\\LocaleCollection\\\\Locale\\:\\:routePrefix\\(\\)\\.$#"
+            count: 3
+            path: src/TranslateRoute.php
