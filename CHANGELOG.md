@@ -5,6 +5,16 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## v1.2.0 - 2024-12-02
+
+### What's Changed
+
+* Bump ramsey/composer-install from 2 to 3 by @dependabot in https://github.com/codedor/laravel-translatable-routes/pull/17
+* Bump dependabot/fetch-metadata from 1.6.0 to 2.2.0 by @dependabot in https://github.com/codedor/laravel-translatable-routes/pull/23
+* Do not report UrlGeneration errors, since we ignore them
+
+**Full Changelog**: https://github.com/codedor/laravel-translatable-routes/compare/v1.1.0...v1.2.0
+
 ## v1.1.0 - 2024-08-02
 
 ### What's Changed
