@@ -4,7 +4,9 @@ namespace Codedor\TranslatableRoutes\Http\Middleware;
 
 use Closure;
 use Codedor\LocaleCollection\Facades\LocaleCollection;
+use Codedor\LocaleCollection\Locale;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class SetLocale
 {
@@ -20,19 +22,16 @@ class SetLocale
             return $next($request);
         }
 
-        $locale = $request->segment(1);
+        $locale = Str::after($request->route()?->getPrefix(), '/');
 
         if (is_livewire_route($request)) {
             $snapshot = json_decode($request->json('components.0.snapshot', ''), true);
-
-            if (isset($snapshot['memo']['locale'])) {
-                $locale = $snapshot['memo']['locale'];
-            } else {
-                $locale = null;
-            }
+            $locale = $snapshot['memo']['locale'] ?? null;
+            $locale = LocaleCollection::firstWhere(fn (Locale $l) => $l->locale() === $locale)
+                ->urlLocale();
         }
 
-        if (! $locale) {
+        if (is_null($locale)) {
             return $next($request);
         }
 
