@@ -27,8 +27,11 @@ class SetLocale
         if (is_livewire_route($request)) {
             $snapshot = json_decode($request->json('components.0.snapshot', ''), true);
             $locale = $snapshot['memo']['locale'] ?? null;
-            $locale = LocaleCollection::firstWhere(fn (Locale $l) => $l->locale() === $locale)
-                ->urlLocale();
+
+            if ($locale) {
+                $locale = LocaleCollection::firstWhere(fn (Locale $l) => $l->locale() === $locale)
+                    ?->urlLocale();
+            }
         }
 
         if (is_null($locale)) {
