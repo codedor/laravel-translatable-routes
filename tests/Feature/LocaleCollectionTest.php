@@ -23,7 +23,10 @@ beforeEach(function () {
 });
 
 it('will only prefix the translatable routes name with the locale url prefix', function () {
-    expect(Route::getRoutes()->getRoutes())
+    $routes = collect(Route::getRoutes()->getRoutes())
+        ->reject(fn ($route) => $route->getName() === 'storage.local');
+
+    expect($routes)
         ->sequence(
             fn ($route) => $route
                 ->getName()->toBe('non-translatable')

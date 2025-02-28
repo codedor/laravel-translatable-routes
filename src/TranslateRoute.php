@@ -13,8 +13,6 @@ use Throwable;
 
 class TranslateRoute
 {
-    private static array $errorMessages = [];
-
     public static function forName(string $routeName, ?string $locale = null, array|Collection $parameters = []): ?string
     {
         if (! $locale) {
@@ -31,12 +29,6 @@ class TranslateRoute
                 self::translateParameters($parameters, $localeObject)
             );
         } catch (Throwable $th) {
-            // We don't want to report the same error multiple times
-            if (! in_array($th->getMessage(), self::$errorMessages)) {
-                self::$errorMessages[] = $th->getMessage();
-                report($th);
-            }
-
             return '#';
         }
     }
