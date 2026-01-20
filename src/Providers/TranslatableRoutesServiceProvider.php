@@ -1,19 +1,19 @@
 <?php
 
-namespace Codedor\TranslatableRoutes\Providers;
+namespace Wotz\TranslatableRoutes\Providers;
 
 use Closure;
-use Codedor\LocaleCollection\Locale;
-use Codedor\LocaleCollection\LocaleCollection;
-use Codedor\TranslatableRoutes\TranslateRoute;
-use Codedor\TranslatableRoutes\TranslateRouteParts;
-use Codedor\TranslatableRoutes\View\Components\HrefLangTags;
 use Illuminate\Routing\Route as RoutingRoute;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Str;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
+use Wotz\LocaleCollection\Locale;
+use Wotz\LocaleCollection\LocaleCollection;
+use Wotz\TranslatableRoutes\TranslateRoute;
+use Wotz\TranslatableRoutes\TranslateRouteParts;
+use Wotz\TranslatableRoutes\View\Components\HrefLangTags;
 
 class TranslatableRoutesServiceProvider extends PackageServiceProvider
 {

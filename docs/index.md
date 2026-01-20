@@ -9,7 +9,7 @@ When it comes to handling translated routes, the process can be complex and time
 First, install this package via the Composer package manager:
 
 ```bash
-composer require codedor/laravel-translatable-routes
+composer require wotz/laravel-translatable-routes
 ```
 
 After installing this package, you can create a `routes/translatable.php` file.
@@ -27,19 +27,19 @@ protected $middlewareGroups = [
         \Illuminate\Session\Middleware\StartSession::class,
         \Illuminate\View\Middleware\ShareErrorsFromSession::class,
         \App\Http\Middleware\VerifyCsrfToken::class,
-        \Codedor\TranslatableRoutes\Http\Middleware\SetLocale::class,
+        \Wotz\TranslatableRoutes\Http\Middleware\SetLocale::class,
         \Illuminate\Routing\Middleware\SubstituteBindings::class,
     ],
 ];
 ```
 
-This is just a copy of the `web` middleware group, but with `\Codedor\TranslatableRoutes\Http\Middleware\SetLocale::class` middleware as an extra.
+This is just a copy of the `web` middleware group, but with `\Wotz\TranslatableRoutes\Http\Middleware\SetLocale::class` middleware as an extra.
 
 In the `AppServiceProvider` (or where you prefer) the Locale can be defined.
 
 ```php
-use \Codedor\LocaleCollection\Facades\LocaleCollection;
-use Codedor\LocaleCollection\Locale;
+use Wotz\LocaleCollection\Facades\LocaleCollection;
+use Wotz\LocaleCollection\Locale;
 
 public function boot()
 {
@@ -58,7 +58,7 @@ public function boot()
     $this->routes(function () {
         // ...
 
-        \Codedor\TranslatableRoutes\Facades\LocaleCollection::registerRoutes(base_path('routes/translatable.php'));
+        \Wotz\TranslatableRoutes\Facades\LocaleCollection::registerRoutes(base_path('routes/translatable.php'));
     });
 }
 ```

@@ -1,6 +1,6 @@
 <?php
 
-namespace Codedor\TranslatableRoutes\Tests\TestEnums;
+namespace Wotz\TranslatableRoutes\Tests\TestEnums;
 
 enum TestCategory: string
 {

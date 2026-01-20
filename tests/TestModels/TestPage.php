@@ -1,6 +1,6 @@
 <?php
 
-namespace Codedor\TranslatableRoutes\Tests\TestModels;
+namespace Wotz\TranslatableRoutes\Tests\TestModels;
 
 use Illuminate\Database\Eloquent\Model;
 use Spatie\Translatable\HasTranslations;

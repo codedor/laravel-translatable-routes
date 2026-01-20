@@ -1,15 +1,15 @@
 <?php
 
-use Codedor\LocaleCollection\Facades\LocaleCollection;
-use Codedor\LocaleCollection\Locale;
-use Codedor\TranslatableRoutes\Tests\TestEnums\TestCategory;
-use Codedor\TranslatableRoutes\Tests\TestModels\TestPage;
 use Illuminate\Support\Facades\Route;
+use Wotz\LocaleCollection\Facades\LocaleCollection;
+use Wotz\LocaleCollection\Locale;
+use Wotz\TranslatableRoutes\Tests\TestEnums\TestCategory;
+use Wotz\TranslatableRoutes\Tests\TestModels\TestPage;
 
 beforeEach(function () {
-    LocaleCollection::push(new Locale('nl', 'http://codedor.be'))
-        ->push(new Locale('fr-BE', 'http://codedor.be', 'fr'))
-        ->push(new Locale('en-GB', 'http://codedor.com'));
+    LocaleCollection::push(new Locale('nl', 'http://whoownsthezebra.be'))
+        ->push(new Locale('fr-BE', 'http://whoownsthezebra.be', 'fr'))
+        ->push(new Locale('en-GB', 'http://whoownsthezebra.com'));
 
     LocaleCollection::registerRoutes(function () {
         Route::get('', function () {

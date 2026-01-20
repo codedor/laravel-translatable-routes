@@ -1,12 +1,12 @@
 <?php
 
-namespace Codedor\TranslatableRoutes\Tests;
+namespace Wotz\TranslatableRoutes\Tests;
 
-use Codedor\TranslatableRoutes\Providers\TranslatableRoutesServiceProvider;
-use Codedor\TranslatableRoutes\Tests\Http\Kernel;
-use Codedor\TranslatableRoutes\Tests\TestModels\TestPage;
 use Illuminate\Database\Schema\Blueprint;
 use Orchestra\Testbench\TestCase as Orchestra;
+use Wotz\TranslatableRoutes\Providers\TranslatableRoutesServiceProvider;
+use Wotz\TranslatableRoutes\Tests\Http\Kernel;
+use Wotz\TranslatableRoutes\Tests\TestModels\TestPage;
 
 class TestCase extends Orchestra
 {

@@ -1,16 +1,16 @@
 {
-    "name": "codedor/laravel-translatable-routes",
+    "name": "wotz/laravel-translatable-routes",
     "description": "Package for Laravel to make routes translatable",
     "keywords": [
-        "codedor",
+        "who owns the zebra",
         "laravel",
         "laravel-translatable-routes"
     ],
-    "homepage": "https://github.com/codedor/laravel-translatable-routes",
+    "homepage": "https://github.com/wotz/laravel-translatable-routes",
     "license": "MIT",
     "require": {
         "php": "^8.2",
-        "codedor/laravel-locale-collection": "^1.2.1",
+        "wotz/laravel-locale-collection": "^2.0",
         "illuminate/contracts": "^10.0|^11.0|^12.0",
         "spatie/laravel-package-tools": "^1.12"
     },
@@ -19,8 +19,8 @@
         "nunomaduro/collision": "^7.0|^8.0",
         "larastan/larastan": "^2.0|^3.0",
         "orchestra/testbench": "^8.0|^9.0|^10.0",
-        "pestphp/pest": "^2.0|^3.0",
-        "pestphp/pest-plugin-laravel": "^2.0|^3.0",
+        "pestphp/pest": "^2.0|^3.0|^4.0",
+        "pestphp/pest-plugin-laravel": "^2.0|^3.0|^4.0",
         "phpstan/extension-installer": "^1.1|^2.0",
         "phpstan/phpstan-deprecation-rules": "^1.0|^2.0",
         "phpstan/phpstan-phpunit": "^1.0|^2.0",
@@ -28,7 +28,7 @@
     },
     "autoload": {
         "psr-4": {
-            "Codedor\\TranslatableRoutes\\": "src"
+            "Wotz\\TranslatableRoutes\\": "src"
         },
         "files": [
             "src/helpers.php"
@@ -36,13 +36,13 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "Codedor\\TranslatableRoutes\\Tests\\": "tests"
+            "Wotz\\TranslatableRoutes\\Tests\\": "tests"
         }
     },
     "extra": {
         "laravel": {
             "providers": [
-                "Codedor\\TranslatableRoutes\\Providers\\TranslatableRoutesServiceProvider"
+                "Wotz\\TranslatableRoutes\\Providers\\TranslatableRoutesServiceProvider"
             ]
         }
     },

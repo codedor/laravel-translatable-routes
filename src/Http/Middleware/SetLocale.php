@@ -1,12 +1,12 @@
 <?php
 
-namespace Codedor\TranslatableRoutes\Http\Middleware;
+namespace Wotz\TranslatableRoutes\Http\Middleware;
 
 use Closure;
-use Codedor\LocaleCollection\Facades\LocaleCollection;
-use Codedor\LocaleCollection\Locale;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
+use Wotz\LocaleCollection\Facades\LocaleCollection;
+use Wotz\LocaleCollection\Locale;
 
 class SetLocale
 {
