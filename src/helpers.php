@@ -1,11 +1,11 @@
 <?php
 
-use Wotz\LocaleCollection\LocaleCollection;
-use Wotz\TranslatableRoutes\TranslateRoute;
 use Filament\Facades\Filament;
 use Filament\Panel;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
+use Wotz\LocaleCollection\LocaleCollection;
+use Wotz\TranslatableRoutes\TranslateRoute;
 
 if (! function_exists('translate_route')) {
     function translate_route(string $routeName, ?string $locale = null, array|Collection $parameters = []): ?string

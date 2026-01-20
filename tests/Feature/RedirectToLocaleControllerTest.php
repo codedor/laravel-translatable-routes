@@ -1,9 +1,9 @@
 <?php
 
+use Illuminate\Support\Facades\Route;
 use Wotz\LocaleCollection\Facades\LocaleCollection;
 use Wotz\LocaleCollection\Locale;
 use Wotz\TranslatableRoutes\Http\Controllers\RedirectToLocaleController;
-use Illuminate\Support\Facades\Route;
 
 beforeEach(function () {
     LocaleCollection::push(new Locale('nl'))

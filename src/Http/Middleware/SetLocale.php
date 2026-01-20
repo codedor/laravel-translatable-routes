@@ -3,10 +3,10 @@
 namespace Wotz\TranslatableRoutes\Http\Middleware;
 
 use Closure;
-use Wotz\LocaleCollection\Facades\LocaleCollection;
-use Wotz\LocaleCollection\Locale;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
+use Wotz\LocaleCollection\Facades\LocaleCollection;
+use Wotz\LocaleCollection\Locale;
 
 class SetLocale
 {
