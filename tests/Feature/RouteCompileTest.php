@@ -1,10 +1,10 @@
 <?php
 
+use Illuminate\Support\Facades\Route;
 use Wotz\LocaleCollection\Facades\LocaleCollection;
 use Wotz\LocaleCollection\Locale;
 use Wotz\TranslatableRoutes\Tests\TestEnums\TestCategory;
 use Wotz\TranslatableRoutes\Tests\TestModels\TestPage;
-use Illuminate\Support\Facades\Route;
 
 beforeEach(function () {
     LocaleCollection::push(new Locale('nl', 'http://whoownsthezebra.be'))

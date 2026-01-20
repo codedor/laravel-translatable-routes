@@ -2,14 +2,14 @@
 
 namespace Wotz\TranslatableRoutes;
 
-use Wotz\LocaleCollection\Facades\LocaleCollection;
-use Wotz\LocaleCollection\Locale;
-use Wotz\LocaleCollection\LocaleCollection as TranslatableRoutesLocaleCollection;
-use Wotz\TranslatableRoutes\Facades\TranslateRouteParts;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
 use Throwable;
+use Wotz\LocaleCollection\Facades\LocaleCollection;
+use Wotz\LocaleCollection\Locale;
+use Wotz\LocaleCollection\LocaleCollection as TranslatableRoutesLocaleCollection;
+use Wotz\TranslatableRoutes\Facades\TranslateRouteParts;
 
 class TranslateRoute
 {

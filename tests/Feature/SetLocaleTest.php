@@ -1,12 +1,12 @@
 <?php
 
-use Wotz\LocaleCollection\Facades\LocaleCollection;
-use Wotz\LocaleCollection\Locale;
-use Wotz\TranslatableRoutes\Http\Middleware\SetLocale;
 use Illuminate\Http\Request as HttpRequest;
 use Illuminate\Support\Facades\Route;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Wotz\LocaleCollection\Facades\LocaleCollection;
+use Wotz\LocaleCollection\Locale;
+use Wotz\TranslatableRoutes\Http\Middleware\SetLocale;
 
 beforeEach(function () {
     LocaleCollection::push(new Locale('nl'))

@@ -2,9 +2,9 @@
 
 namespace Wotz\TranslatableRoutes\Http\Controllers;
 
-use Wotz\LocaleCollection\Facades\LocaleCollection;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Wotz\LocaleCollection\Facades\LocaleCollection;
 
 class RedirectToLocaleController
 {
