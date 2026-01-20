@@ -7,13 +7,13 @@ Wrapper to define multiple locales for a website and associate a url per locale.
 You can install the package via composer:
 
 ```bash
-composer require codedor/laravel-translatable-routes
+composer require wotz/laravel-translatable-routes
 ```
 
 ## Usage
 
 ```php
-use \Codedor\LocaleCollection\Facades\LocaleCollection;
+use Wotz\LocaleCollection\Facades\LocaleCollection;
 
 LocaleCollection::registerRoutes(base_path('routes/translatable.php'));
 ```
@@ -42,7 +42,7 @@ Please see [CONTRIBUTING](CONTRIBUTING.md) for details.
 
 ## Security Vulnerabilities
 
-If you discover any security-related issues, please email info@codedor.be instead of using the issue tracker.
+If you discover any security-related issues, please email info@whoownsthezebra.be instead of using the issue tracker.
 
 ## License
 
