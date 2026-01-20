@@ -6,7 +6,7 @@
         "laravel",
         "laravel-translatable-routes"
     ],
-    "homepage": "https://github.com/wotz/laravel-translatable-routes",
+    "homepage": "https://github.com/wotzebra/laravel-translatable-routes",
     "license": "MIT",
     "require": {
         "php": "^8.2",
