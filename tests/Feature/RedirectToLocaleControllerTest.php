@@ -1,8 +1,8 @@
 <?php
 
-use Codedor\LocaleCollection\Facades\LocaleCollection;
-use Codedor\LocaleCollection\Locale;
-use Codedor\TranslatableRoutes\Http\Controllers\RedirectToLocaleController;
+use Wotz\LocaleCollection\Facades\LocaleCollection;
+use Wotz\LocaleCollection\Locale;
+use Wotz\TranslatableRoutes\Http\Controllers\RedirectToLocaleController;
 use Illuminate\Support\Facades\Route;
 
 beforeEach(function () {

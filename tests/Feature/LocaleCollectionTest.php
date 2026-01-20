@@ -1,7 +1,7 @@
 <?php
 
-use Codedor\LocaleCollection\Locale;
-use Codedor\LocaleCollection\LocaleCollection;
+use Wotz\LocaleCollection\Locale;
+use Wotz\LocaleCollection\LocaleCollection;
 use Illuminate\Support\Facades\Route;
 
 beforeEach(function () {

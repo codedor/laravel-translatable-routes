@@ -1,8 +1,8 @@
 <?php
 
-namespace Codedor\TranslatableRoutes\Http\Controllers;
+namespace Wotz\TranslatableRoutes\Http\Controllers;
 
-use Codedor\LocaleCollection\Facades\LocaleCollection;
+use Wotz\LocaleCollection\Facades\LocaleCollection;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 

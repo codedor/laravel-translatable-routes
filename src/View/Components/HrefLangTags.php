@@ -1,6 +1,6 @@
 <?php
 
-namespace Codedor\TranslatableRoutes\View\Components;
+namespace Wotz\TranslatableRoutes\View\Components;
 
 use Closure;
 use Illuminate\Contracts\View\View;

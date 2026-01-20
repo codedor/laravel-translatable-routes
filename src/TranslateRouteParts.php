@@ -1,6 +1,6 @@
 <?php
 
-namespace Codedor\TranslatableRoutes;
+namespace Wotz\TranslatableRoutes;
 
 use Illuminate\Support\Collection;
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace Codedor\TranslatableRoutes\Tests\Http;
+namespace Wotz\TranslatableRoutes\Tests\Http;
 
 use Orchestra\Testbench\Foundation\Http\Kernel as HttpKernel;
 
@@ -25,7 +25,7 @@ class Kernel extends HttpKernel
             \Illuminate\Session\Middleware\StartSession::class,
             \Illuminate\View\Middleware\ShareErrorsFromSession::class,
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
-            \Codedor\TranslatableRoutes\Http\Middleware\SetLocale::class,
+            \Wotz\TranslatableRoutes\Http\Middleware\SetLocale::class,
         ],
     ];
 }

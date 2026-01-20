@@ -1,11 +1,11 @@
 <?php
 
-namespace Codedor\TranslatableRoutes;
+namespace Wotz\TranslatableRoutes;
 
-use Codedor\LocaleCollection\Facades\LocaleCollection;
-use Codedor\LocaleCollection\Locale;
-use Codedor\LocaleCollection\LocaleCollection as TranslatableRoutesLocaleCollection;
-use Codedor\TranslatableRoutes\Facades\TranslateRouteParts;
+use Wotz\LocaleCollection\Facades\LocaleCollection;
+use Wotz\LocaleCollection\Locale;
+use Wotz\LocaleCollection\LocaleCollection as TranslatableRoutesLocaleCollection;
+use Wotz\TranslatableRoutes\Facades\TranslateRouteParts;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;

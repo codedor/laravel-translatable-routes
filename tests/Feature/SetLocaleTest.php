@@ -1,8 +1,8 @@
 <?php
 
-use Codedor\LocaleCollection\Facades\LocaleCollection;
-use Codedor\LocaleCollection\Locale;
-use Codedor\TranslatableRoutes\Http\Middleware\SetLocale;
+use Wotz\LocaleCollection\Facades\LocaleCollection;
+use Wotz\LocaleCollection\Locale;
+use Wotz\TranslatableRoutes\Http\Middleware\SetLocale;
 use Illuminate\Http\Request as HttpRequest;
 use Illuminate\Support\Facades\Route;
 use Symfony\Component\HttpFoundation\Request;
@@ -35,7 +35,7 @@ it('throws 404 when locale is not valid', function () {
 });
 
 it('throws 404 when url is not found', function () {
-    createRequestAndHandleMiddleware('http://codedor.be/en');
+    createRequestAndHandleMiddleware('http://whoownsthezebra.be/en');
 
     expect(LocaleCollection::getCurrent())
         ->toBeNull();

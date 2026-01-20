@@ -1,7 +1,7 @@
 <?php
 
-use Codedor\LocaleCollection\LocaleCollection;
-use Codedor\TranslatableRoutes\TranslateRoute;
+use Wotz\LocaleCollection\LocaleCollection;
+use Wotz\TranslatableRoutes\TranslateRoute;
 use Filament\Facades\Filament;
 use Filament\Panel;
 use Illuminate\Support\Collection;
